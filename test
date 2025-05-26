@@ -1,0 +1,4 @@
+!#bin/bash
+source aws
+Ami_aws
+
