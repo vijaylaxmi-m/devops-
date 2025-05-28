@@ -80,4 +80,30 @@ a {
     <p>Already have an account? <a href="#">Sign in</a>.</p>
   </div>
 </form>
+import requests
+
+def get_weather(city, api_key):
+    base_url = "http://api.openweathermap.org/data/2.5/weather"
+    params = {
+        'q': city,
+        'appid': api_key,
+        'units': 'metric'  # Change to 'imperial' for Fahrenheit
+    }
+
+    response = requests.get(base_url, params=params)
+    
+    if response.status_code == 200:
+        data = response.json()
+        weather = data['weather'][0]['description']
+        temp = data['main']['temp']
+        print(f"Weather in {city}: {weather}")
+        print(f"Temperature: {temp}°C")
+    else:
+        print(f"Error: {response.status_code} - Could not find weather for '{city}'.")
+
+# Example usage
+if __name__ == "__main__":
+    api_key = "YOUR_API_KEY_HERE"  # Replace with your actual API key
+    city = input("Enter a city name: ")
+    get_weather(city, api_key)
 
